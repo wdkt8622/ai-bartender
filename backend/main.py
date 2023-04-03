@@ -1,13 +1,16 @@
 from fastapi import FastAPI
 from models import RecommendationInput, RecommendationOutput
 import requests
+from dotenv import load_dotenv
+import os
 
 app = FastAPI()
+load_dotenv()
 
 def get_cocktail_recommendation(ingredients: str, mood: str) -> RecommendationOutput:
     # ChatGPT APIのURLとAPIキーを設定します。
     api_url = "https://api.openai.com/v1/engines/davinci-codex/completions"
-    api_key = "your_api_key"
+    api_key = os.environ.get("OPENAI_API_KEY")
 
     # APIへのリクエストヘッダーとペイロードを設定します。
     headers = {"Authorization": f"Bearer {api_key}"}
